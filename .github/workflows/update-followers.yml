@@ -23,9 +23,11 @@ jobs:
         run: node update-follower.js
 
       - name: Commit changes
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           git config --global user.name 'Follower Bot'
           git config --global user.email 'bot@github.com'
           git add index.html
           git diff --staged --quiet || git commit -m "bot: update follower count"
-          git push
+          git push https://iqpill:${TOKEN}@github.com/iqpill/iqpill.github.io.git
