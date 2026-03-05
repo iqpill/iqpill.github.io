@@ -1,0 +1,31 @@
+name: Update Follower Count
+
+on:
+  schedule:
+    
+    - cron: '0 * * * *'
+  
+  workflow_dispatch:
+
+jobs:
+  update-count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Update Script
+        run: node update-follower.js
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'Follower Bot'
+          git config --global user.email 'bot@github.com'
+          git add index.html
+          git diff --staged --quiet || git commit -m "bot: update follower count"
+          git push
