@@ -2,9 +2,9 @@ name: Update Follower Count
 
 on:
   schedule:
-    
+    # Runs every hour
     - cron: '0 * * * *'
-  
+  # Allows you to run it manually
   workflow_dispatch:
 
 jobs:
